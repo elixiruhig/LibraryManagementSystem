@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Your Profile</title>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<style>
+    .well-lg{
+        background-color: #e0e0e0;
+        padding: 2px;
+        border: solid;
+    }
+</style>
+</head>
+<body>
+<div>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{% url 'library:homeview' %}">Library</a>
+    </div>
+  </div>
+</nav>
+<div class="container">
+<div class="row">
+<div class="column"  align="center">
+    <div class="card" align="center">
+      <img src="{{ user.profile_pic.url }}" alt="bla" style="border-radius: 20%">
+      <div class="container">
+        <h2>{{ user.first_name }}</h2>
+        <p class="title">@{{ user.user.username}}</p>
+        <p>{{ user.phone }}</p>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+<h3 align="center">History</h3>
+{% for inventory in inventorys %}
+<br>
+<div class="container">
+<div class="well well-lg" style="background-color: #e0e0e0">
+<ul type="None">
+
+    <br/>
+    <li>
+        Order id: {{ inventory.order_id }}
+    </li>
+    <li>
+        Book: {{ inventory.book }}
+    </li>
+    <li>
+        Issue Date: {{ inventory.issue_date }}
+    </li>
+    <li>
+        Fine: {{ inventory.fine }}
+    </li>
+    <li>
+        Status: {% if inventory.status == True %} Returned {% else %} Pending {% endif %}
+    </li>
+    {% if inventory.status == False %}
+    <li>
+        <form action="" method="post">
+            {% csrf_token %}
+            <button class="btn btn-warning" name="return" value="{{ inventory.order_id }}">Return</button>
+        </form>
+    </li>
+    {% endif %}
+
+</ul>
+
+</div>
+</div>
+{% endfor %}
+</div>
+</body>
+</html>

@@ -21,8 +21,9 @@ from library import views
 app_name = 'library'
 urlpatterns = [
     path('',views.homeview,name = 'homeview'),
-    url(r'^login/$',views.login, name = 'login'),
+    url(r'^login/$',views.user_login, name = 'login'),
     url(r'^signout/$',views.signout, name='signout'),
     url(r'^register/$',views.register, name='register'),
+    url(r'^profile=(?P<profile>[\w]+)$', views.user_profile, name = 'user_profile'),
 
 ]
