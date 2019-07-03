@@ -25,5 +25,5 @@ urlpatterns = [
     url(r'^signout/$',views.signout, name='signout'),
     url(r'^register/$',views.register, name='register'),
     url(r'^profile=(?P<profile>[\w]+)$', views.user_profile, name = 'user_profile'),
-
+    url(r'^book=(?P<book_id>[\w]+)$',views.book_detail,name = 'book_detail'),
 ]

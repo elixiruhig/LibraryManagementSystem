@@ -61,15 +61,15 @@ def register(request):
             user.save()
             profile = profile_form.save(commit=False)
 
-            profile.user = request.user.id
+            profile.user = request.user
             profile.save()
-            return render(request,'library/login.html',{'message':'Login to your account'})
+            return render(request,'library/home.html')
         else:
             return HttpResponse('{} {}'.format(user_form.errors,profile_form.errors))
 
     elif request.method == 'GET':
-        user_form = UserForm()
-        profile_form = UserProfileForm()
+        user_form = UserForm(auto_id=False)
+        profile_form = UserProfileForm(auto_id=False)
         return render(request,'library/register.html',{'user_form':user_form,'profile_form':profile_form})
 
 def user_profile(request,profile):
@@ -100,3 +100,7 @@ def user_profile(request,profile):
     user = UserProfile.objects.get(user = User.objects.get(username=profile))
     inventorys = Inventory.objects.filter(user = user)
     return render(request,'library/user_profile.html',{'user':user,'inventorys':inventorys})
+
+def book_detail(request,book_id):
+    book = Book.objects.get(id=book_id)
+    return render(request,'library/book_detail.html',{'book':book})

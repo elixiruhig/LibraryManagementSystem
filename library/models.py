@@ -12,9 +12,9 @@ class UserProfile(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
     first_name = models.CharField(max_length=100, blank=False, null=False)
     last_name = models.CharField(max_length=100, blank=False, null=False)
-    phone = models.IntegerField(blank=True, null=True)
+    phone = models.BigIntegerField(blank=True, null=True)
     address = models.TextField(blank=True, null=True)
-    profile_pic = models.ImageField(upload_to='profile_pic', default='media/default.png')
+    profile_pic = models.ImageField(upload_to='profile_pic', default='default.png')
     fine = models.IntegerField(default=0)
 
 
@@ -44,6 +44,7 @@ class Book(models.Model):
     abstract = models.CharField(max_length=1000, blank=False, null=False)
     photo = models.ImageField(upload_to='book_photos',default='media/default.png')
     quantity = models.IntegerField(default=10)
+
 
     def __str__(self):
         return self.name

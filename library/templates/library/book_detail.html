@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>{{ book.name }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-<style>
+    <style>
 html {
   box-sizing: border-box;
 }
@@ -46,7 +47,8 @@ html {
 }
 
 .title {
-  color: grey;
+  color: black;
+  font-size: xx-large;
 }
 
 .button {
@@ -133,59 +135,26 @@ a{
 .button:hover {
   background-color: #555;
 }
-
 </style>
+
 </head>
 <body>
-<nav class="navbar navbar-default sticky-top sticky" style="background-color: #4CAF50">
-      <nav class="container">
-{% if user.is_authenticated %}
-              <ul class="nav navbar-nav navbar-right">
-                <li><a class="navbar-link" href="{% url 'library:signout' %}">Logout</a></li>
-              <li><a class="navbar-link" href="{% url 'library:user_profile' user %}"><img style="border-radius: 50%" src="{{ profile.profile_pic.url }}" alt="profile-pic" width="30px" height="30px"  ></a></li>
-              </ul>
 
-          {% else %}
-              <ul class="nav navbar-nav">
-            <li><a class="navbar-link" href="{% url 'library:register' %}">Register</a></li>
-            <li><a class="navbar-link" href="{% url 'library:login' %}">Login</a></li>
+<div class="container" align="center">
+    <div class="well well-sm">
+        <div class="title">{{ book.name }}</div>
+        <p><strong>Author: </strong>{{ book.author }}</p>
+        <p><strong>ISBN: </strong>{{ book.isbn }}</p>
+        <p><strong>Category: </strong>{{ book.category }}</p>
+        <p><strong>Year: </strong>{{ book.year }}</p>
+        <p><strong>Pages: </strong>{{ book.pages }}</p>
+        <p><strong>Publisher: </strong>{{ book.publisher }}</p>
+        <p><strong>Language: </strong>{{ book.language }}</p>
+        <p><strong>Abstract: </strong>{{ book.abstract }}</p>
+        <p><strong>Quantity: </strong>{{ book.quantity }}</p>
 
-          {% endif %}
-      </ul>
-          </nav>
-      </nav>
-    {% if user.is_authenticated %}
-
-        <br>
-        <div class="container">
-        <div class="well well-lg">
-        <h1>Books</h1>
-        </div>
-        <div class="row">
-        {% for book in books %}
-            {% if book.quantity > 0 %}
-            <div class="column">
-    <div class="card" style="text-align: center">
-        <div style="display: inline-block">
-      <img src="{{ book.photo.url }}" alt="bla" style="width:50%">
-            </div>
-      <div class="container">
-        <h2><a style="color: #4CAF50" href = "{% url 'library:book_detail' book.id %}">{{ book.name }}</a></h2>
-
-        <p class="title">{{ book.author }}</p>
-        <p>{{ book.abstract }}</p>
-        <p>{{ book.category }}</p>
-        <form method="post" action="">{% csrf_token %}<button class="button" name="borrow" value="{{ book.isbn }}">Borrow</button></form>
-      </div>
     </div>
-  </div>
-            {% endif %}
-        {% endfor %}
-        </div>
-        </div>
-    {% endif %}
+</div>
 
 </body>
 </html>
-
-
